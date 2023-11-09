@@ -1,0 +1,52 @@
+def create_index_html_file():
+    file_path = "index.html"
+    content = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta tags, title, and CSS link -->
+</head>
+<body>
+  <!-- Your iframe and other body content -->
+</body>
+</html>
+"""
+
+    with open(file_path, "w") as file:
+        file.write(content)
+
+create_index_html_file()
+```
+
+Unit Test:
+```python
+def test_create_index_html_file():
+    # Create a temporary directory for testing
+    with tempfile.TemporaryDirectory() as temp_dir:
+        # Set the current working directory to the temporary directory
+        os.chdir(temp_dir)
+
+        # Call the function to create the index.html file
+        create_index_html_file()
+
+        # Check if the index.html file exists
+        assert os.path.exists("index.html")
+
+        # Read the content of the index.html file
+        with open("index.html", "r") as file:
+            content = file.read()
+
+        # Check if the content is correct
+        assert content.strip() == """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta tags, title, and CSS link -->
+</head>
+<body>
+  <!-- Your iframe and other body content -->
+</body>
+</html>
+""".strip()
+
+test_create_index_html_file()
