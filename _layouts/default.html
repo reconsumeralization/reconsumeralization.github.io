@@ -1,0 +1,40 @@
+def add_content_to_layout(file_path):
+    # Read the content of the file
+    with open(file_path, 'r') as file:
+        content = file.read()
+
+    # Find the opening <body> tag
+    body_start = content.find('<body>') + len('<body>')
+
+    # Insert the line {{ content }} after the opening <body> tag
+    modified_content = content[:body_start] + '\n{{ content }}' + content[body_start:]
+
+    # Write the modified content back to the file
+    with open(file_path, 'w') as file:
+        file.write(modified_content)
+```
+
+Unit Test:
+```python
+def test_add_content_to_layout():
+    # Create a temporary directory for testing
+    with tempfile.TemporaryDirectory() as temp_dir:
+        # Set the current working directory to the temporary directory
+        os.chdir(temp_dir)
+
+        # Create a sample _layouts/default.html file
+        layout_file = os.path.join(temp_dir, '_layouts/default.html')
+        with open(layout_file, 'w') as file:
+            file.write('<html>\n<head>\n</head>\n<body>\n</body>\n</html>')
+
+        # Call the function to add content to the layout file
+        add_content_to_layout(layout_file)
+
+        # Read the modified content of the layout file
+        with open(layout_file, 'r') as file:
+            modified_content = file.read()
+
+        # Check if the line {{ content }} is added after the opening <body> tag
+        assert modified_content == '<html>\n<head>\n</head>\n<body>\n{{ content }}\n</body>\n</html>'
+
+test_add_content_to_layout()

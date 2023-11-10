@@ -1,0 +1,34 @@
+# Assuming the repository is in Python
+
+def create_cname_file():
+    file_path = "CNAME"
+    content = "www.agiaify.info"
+
+    with open(file_path, "w") as file:
+        file.write(content)
+
+create_cname_file()
+```
+
+Unit Test:
+```python
+def test_create_cname_file():
+    # Create a temporary directory for testing
+    with tempfile.TemporaryDirectory() as temp_dir:
+        # Set the current working directory to the temporary directory
+        os.chdir(temp_dir)
+
+        # Call the function to create the CNAME file
+        create_cname_file()
+
+        # Check if the CNAME file exists
+        assert os.path.exists("CNAME")
+
+        # Read the content of the CNAME file
+        with open("CNAME", "r") as file:
+            content = file.read()
+
+        # Check if the content is correct
+        assert content == "www.agiaify.info"
+
+test_create_cname_file()

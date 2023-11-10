@@ -1,0 +1,46 @@
+def create_header_html_file():
+    file_path = "_includes/header.html"
+    content = """
+<header>
+  <nav>
+    <!-- Navigation links -->
+  </nav>
+</header>
+"""
+
+    with open(file_path, "w") as file:
+        file.write(content)
+
+create_header_html_file()
+```
+
+Unit Test:
+```python
+import os
+
+def test_create_header_html_file():
+    # Create a temporary directory for testing
+    with tempfile.TemporaryDirectory() as temp_dir:
+        # Set the current working directory to the temporary directory
+        os.chdir(temp_dir)
+
+        # Call the function to create the header.html file
+        create_header_html_file()
+
+        # Check if the header.html file exists
+        assert os.path.exists("_includes/header.html")
+
+        # Read the content of the header.html file
+        with open("_includes/header.html", "r") as file:
+            content = file.read()
+
+        # Check if the content is correct
+        assert content.strip() == """
+<header>
+  <nav>
+    <!-- Navigation links -->
+  </nav>
+</header>
+""".strip()
+
+test_create_header_html_file()
